@@ -1,19 +1,19 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <CarDetail />
   </div>
 </template>
 
-<script>
-import HelloWorld from './components/HelloWorld.vue'
+<script lang="ts">
+import Vue from 'vue';
+import CarDetail from './components/CarDetail.vue';
 
-export default {
+export default Vue.extend({
   name: 'App',
   components: {
-    HelloWorld
+    CarDetail
   }
-}
+});
 </script>
 
 <style>
