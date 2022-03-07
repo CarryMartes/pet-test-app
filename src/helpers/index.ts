@@ -29,14 +29,14 @@ export const _header: ITableHeader[] = [
 
 export const _items: ICarDetail[] = [
   {
-    id: 1,
+    id: "#1",
     name: "Кузов",
     amount: 1,
     price: 0,
     cost: 0,
   },
   {
-    id: 2,
+    id: "#2",
     name: "Двигатель",
     amount: 2,
     price: 0,
@@ -53,11 +53,11 @@ export const _defaultItems: ICarDetail = {
 };
 
 export const _defaultStoreItems: IStoreItems = {
-  "1": {
+  "#1": {
     index: 0,
     children_count: 0,
   },
-  "2": {
+  "#2": {
     index: 1,
     children_count: 0,
   },

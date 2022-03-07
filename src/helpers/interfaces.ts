@@ -7,8 +7,6 @@ export interface ICarDetail {
   [key: string]: number | string;
 }
 
-export type TKeyType = number | undefined | string;
-
 export interface ITableHeader {
   key: string;
   sortable?: boolean;

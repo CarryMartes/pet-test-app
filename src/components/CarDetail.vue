@@ -1,6 +1,22 @@
 <template>
-  <div class="container">
-    <b-table striped hover :items="items" :fields="fields" :bordered="true">
+  <div class="container" ref="container">
+    <!-- library to download excel -->
+    <download-excel
+      class="btn btn-default"
+      :data="items"
+      name="filename.xls"
+    >
+      <b-button @click="downloadExcel">Скачать excel файл</b-button>
+    </download-excel>
+    <!-- html table -->
+    <b-table
+      striped
+      hover
+      :items="items"
+      :fields="fields"
+      :bordered="true"
+      id="table"
+    >
       <template #cell(name)="{ item }">
         <b-form-input v-model="item.name"></b-form-input>
       </template>
@@ -9,18 +25,14 @@
           v-model="item.price"
           v-if="!isChildrenExist(item)"
           type="number"
-          @change="(e) => onNumbersChange(e, item, 'price')"
+          @change="(e) => onNumbersChange(e, item)"
         ></b-form-input>
         <span v-else>
           {{ item.price }}
         </span>
       </template>
       <template #cell(amount)="{ item }">
-        <b-form-input
-          v-model="item.amount"
-          type="number"
-          @change="(e) => onNumbersChange(e, item, 'amount')"
-        ></b-form-input>
+        <b-form-input v-model="item.amount" type="number"></b-form-input>
       </template>
       <template #cell(cost)="{ item }">
         <span>{{ calculateCost(item) }}</span>
@@ -45,7 +57,12 @@
 </template>
 
 <script lang="ts">
-import { ICarDetail, IStoreItems, IStoreItemsValue, ITableHeader } from "@/helpers/interfaces";
+import {
+  ICarDetail,
+  IStoreItems,
+  IStoreItemsValue,
+  ITableHeader,
+} from "@/helpers/interfaces";
 import { computed, reactive, Ref, ref } from "@vue/composition-api";
 import Vue from "vue";
 import {
@@ -62,12 +79,16 @@ export default Vue.extend({
     const items: Ref<ICarDetail[]> = ref(_items);
     const fields: ITableHeader[] = _header;
     const storeItems: IStoreItems = reactive(_defaultStoreItems);
+    const container: Ref<HTMLElement | string> = ref("");
     /**
      * @return function
      * @param item
      */
     const calculateCost = computed(
-      () => (item: ICarDetail) => item.price * item.amount
+      () => (item: ICarDetail) => {
+        item.cost = item.price * item.amount
+        return item.cost;
+      }
     );
     /**
      * @param {id, tableIndex}
@@ -98,7 +119,7 @@ export default Vue.extend({
       storeItems[id].children_count++;
     };
     /**
-     * 
+     * insert for every child price
      */
     const depthInsert = (targetId: IStoreItemsValue["parent_id"]) => {
       const currentItem = items.value.find((item) => item.id === targetId);
@@ -122,7 +143,7 @@ export default Vue.extend({
      */
     const removeIndexes = (
       parentId: IStoreItemsValue["parent_id"],
-      targetIndex: IStoreItemsValue['index']
+      targetIndex: IStoreItemsValue["index"]
     ) => {
       if (!parentId) return;
       storeItems[parentId].index -= targetIndex + 1;
@@ -171,17 +192,11 @@ export default Vue.extend({
     /**
      * onPriceChange
      */
-    const onNumbersChange = (
-      value: string,
-      item: ICarDetail,
-      field: string
-    ) => {
+    const onNumbersChange = (value: string, item: ICarDetail) => {
       if (isNaN(+value)) return;
-      switch (field) {
-        case "price":
-          depthInsert(storeItems[item.id].parent_id);
-      }
+      depthInsert(storeItems[item.id].parent_id);
     };
+    const downloadExcel = () => {};
     return {
       items,
       fields,
@@ -190,6 +205,8 @@ export default Vue.extend({
       onNumbersChange,
       isChildrenExist,
       calculateCost,
+      container,
+      downloadExcel,
     };
   },
 });
