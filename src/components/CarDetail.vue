@@ -1,9 +1,10 @@
 <template>
-  <div class="container">
+  <div class="mx-5">
     <!-- library to download excel -->
     <download-excel
       class="btn btn-default"
       :data="items"
+      :fields="_excelHeader"
       name="filename.xls"
     >
       <b-button>Скачать excel файл</b-button>
@@ -71,6 +72,7 @@ import {
   _defaultStoreItems,
   getDefaultId,
   _defaultItems,
+  _excelHeader,
 } from "../helpers";
 
 export default Vue.extend({
@@ -203,6 +205,7 @@ export default Vue.extend({
       onNumbersChange,
       isChildrenExist,
       calculateCost,
+      _excelHeader,
     };
   },
 });

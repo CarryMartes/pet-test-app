@@ -22,3 +22,7 @@ export interface IStoreItemsValue {
 export interface IStoreItems {
   [key: string]: IStoreItemsValue;
 }
+
+export interface IExcelHeader {
+  [key: string]: string;
+}

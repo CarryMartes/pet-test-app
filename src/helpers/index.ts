@@ -1,4 +1,12 @@
-import { ICarDetail, IStoreItems, ITableHeader } from "./interfaces";
+import { ICarDetail, IExcelHeader, IStoreItems, ITableHeader } from "./interfaces";
+
+export const _excelHeader: IExcelHeader = {
+    "ID" : 'id',
+    "Название": "name",
+    "Количество": "amount",
+    "Цена": "price",
+    "Стоимость": "cost"
+}
 
 export const _header: ITableHeader[] = [
   {
