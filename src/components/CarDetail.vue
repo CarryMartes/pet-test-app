@@ -6,7 +6,7 @@
       :data="items"
       name="filename.xls"
     >
-      <b-button @click="downloadExcel">Скачать excel файл</b-button>
+      <b-button>Скачать excel файл</b-button>
     </download-excel>
     <!-- html table -->
     <b-table
@@ -196,7 +196,6 @@ export default Vue.extend({
       if (isNaN(+value)) return;
       depthInsert(storeItems[item.id].parent_id);
     };
-    const downloadExcel = () => {};
     return {
       items,
       fields,
@@ -206,7 +205,6 @@ export default Vue.extend({
       isChildrenExist,
       calculateCost,
       container,
-      downloadExcel,
     };
   },
 });
