@@ -1,5 +1,5 @@
 <template>
-  <div class="container" ref="container">
+  <div class="container">
     <!-- library to download excel -->
     <download-excel
       class="btn btn-default"
@@ -79,7 +79,6 @@ export default Vue.extend({
     const items: Ref<ICarDetail[]> = ref(_items);
     const fields: ITableHeader[] = _header;
     const storeItems: IStoreItems = reactive(_defaultStoreItems);
-    const container: Ref<HTMLElement | string> = ref("");
     /**
      * @return function
      * @param item
@@ -204,7 +203,6 @@ export default Vue.extend({
       onNumbersChange,
       isChildrenExist,
       calculateCost,
-      container,
     };
   },
 });
